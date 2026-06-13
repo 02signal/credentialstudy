@@ -1,0 +1,17 @@
+---
+const label = Astro.props.label ?? "Recognised microcredentials, online";
+---
+<footer class="footer">
+  <div class="footer-inner">
+    <strong>CredentialStudy</strong>
+    <nav class="footer-links" aria-label="Footer links">
+      <span>Ettevõtluskeskus OÜ · {label}</span>
+      <a href="/programmes/">Programmes</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="#" data-cookie-settings>Cookies</a>
+      <a href="mailto:info@02signal.ai" data-track-event="email_click" data-track-label="footer_email">info@02signal.ai</a>
+    </nav>
+  </div>
+</footer>

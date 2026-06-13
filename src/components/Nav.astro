@@ -1,0 +1,31 @@
+---
+// Shared top navigation, so links stay consistent across pages.
+---
+<header class="topbar">
+  <nav class="nav" aria-label="Main navigation">
+    <a class="brand" href="/" aria-label="CredentialStudy home">Credential<b>Study</b></a>
+    <button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-menu" data-nav-toggle>
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="nav-menu" data-nav-menu>
+      <a href="/programmes/">Programmes</a>
+      <a href="/how-it-works/">How it works</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/#notify" data-track-event="cta_click" data-track-label="nav_notify">Get notified</a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-nav-toggle]");
+  const menu = document.querySelector("[data-nav-menu]");
+  if (toggle && menu) {
+    const setOpen = (open: boolean) => {
+      menu.classList.toggle("open", open);
+      toggle.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    toggle.addEventListener("click", () => setOpen(!menu.classList.contains("open")));
+    menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
+  }
+</script>

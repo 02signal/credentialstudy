@@ -1,0 +1,65 @@
+---
+import Seo from "../../components/Seo.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import Faq from "../../components/Faq.astro";
+import "../../styles/global.css";
+
+const faqItems = [
+  { question: "What is a microcredential?", answer: "A microcredential is short, focused study that proves one concrete skill and ends with a recognised certificate — not a full degree. It typically takes weeks to a couple of months alongside work." },
+  { question: "What's the difference between a microcredential and a microdegree?", answer: "A microdegree is a microcredential offered by a university, usually carrying ECTS credits. Both certify a focused skill; the microdegree sits at higher-education level." },
+  { question: "Is CredentialStudy online?", answer: "Yes. Programmes are designed to be taken online, part-time, from anywhere in Europe." },
+  { question: "Will the certificate be recognised?", answer: "Our programmes are built around recognised microcredential standards, aligned with the EU's European Approach to Micro-credentials and EQF levels, so the certificate carries weight with employers and is comparable across Europe." },
+  { question: "How long does a programme take?", answer: "Most are designed for weeks to a couple of months alongside work — focused, not a multi-year commitment." },
+  { question: "Who can help fund it?", answer: "Often an employer's training budget covers upskilling for current work. In Estonia, public support such as Töötukassa can also help eligible learners. Funding options will be shown per programme." },
+  { question: "When do programmes open?", answer: "The first programmes are in preparation. Join the notify list to be first to know when enrolment opens." }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "EducationalOrganization", "@id": "https://credentialstudy.com/#org", name: "CredentialStudy", url: "https://credentialstudy.com/" },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://credentialstudy.com/" },
+        { "@type": "ListItem", position: 2, name: "FAQ", item: "https://credentialstudy.com/faq/" }
+      ]
+    },
+    { "@type": "FAQPage", mainEntity: faqItems.map((i) => ({ "@type": "Question", name: i.question, acceptedAnswer: { "@type": "Answer", text: i.answer } })) }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo
+      title="FAQ | CredentialStudy"
+      description="Frequently asked questions about CredentialStudy microcredentials: what they are, online delivery, recognition, length, funding and when programmes open."
+      canonicalPath="/faq/"
+      jsonLd={schema}
+    />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <span class="eyebrow">FAQ</span>
+          <h1>Frequently asked questions.</h1>
+          <p>Short, clear answers about CredentialStudy microcredentials.</p>
+        </div>
+      </section>
+      <section class="white">
+        <div class="section-inner narrow">
+          <Faq items={faqItems} openFirst={3} />
+          <div class="inline-actions" style="margin-top:24px">
+            <a class="btn btn-primary" href="/#notify" data-track-event="cta_click" data-track-label="faq_notify">Get notified</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <Footer label="FAQ" />
+  </body>
+</html>

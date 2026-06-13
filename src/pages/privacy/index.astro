@@ -1,0 +1,45 @@
+---
+import Seo from "../../components/Seo.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import "../../styles/global.css";
+const updatedAt = "2026-06-13";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo
+      title="Privacy & cookies | CredentialStudy"
+      description="What data CredentialStudy collects, why, how long we keep it, and your rights."
+      canonicalPath="/privacy/"
+    />
+  </head>
+  <body>
+    <Nav />
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <span class="eyebrow">Privacy &amp; cookies</span>
+          <h1>We use your data only to reply and improve.</h1>
+          <p>Updated {updatedAt}. Controller: Ettevõtluskeskus OÜ, info@02signal.ai, +372 5818 0435.</p>
+        </div>
+      </section>
+      <section class="white">
+        <div class="section-inner narrow">
+          <h2>What we collect</h2>
+          <p><strong>Notify form.</strong> If you ask to be notified, we collect your email, your role and any optional message. We use these to reply and to tell you when programmes open, if you consented.</p>
+          <p><strong>Analytics (consent only).</strong> Google Analytics cookies are set only after you click "Accept analytics". Without consent, no analytics is loaded and no analytics cookies are set. Your choice is stored in your browser (localStorage); change it anytime via the footer "Cookies" link.</p>
+          <h2>Where data is stored</h2>
+          <p>The site is hosted on Vercel. Form submissions reach our intake system and mailbox (under Ettevõtluskeskus OÜ control). Analytics is processed by Google (GA4), only with your consent and without ad targeting.</p>
+          <h2>How long we keep it</h2>
+          <p>If no collaboration follows, we delete enquiry data within 12 months. You can withdraw newsletter consent anytime.</p>
+          <h2>Your rights</h2>
+          <p>You can ask what data we hold, have it corrected or deleted, and withdraw consent. Write to info@02signal.ai — we reply within one business day. You may also complain to the Estonian Data Protection Inspectorate (aki.ee).</p>
+          <p><a href="#" data-cookie-settings>Change your cookie choice</a></p>
+        </div>
+      </section>
+    </main>
+    <Footer label="Privacy" />
+  </body>
+</html>

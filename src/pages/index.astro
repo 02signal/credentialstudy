@@ -1,0 +1,238 @@
+---
+import Seo from "../components/Seo.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import Faq from "../components/Faq.astro";
+import "../styles/global.css";
+
+const emailHref = "mailto:info@02signal.ai?subject=CredentialStudy";
+
+const faqItems = [
+  {
+    question: "What is a microcredential?",
+    answer: "A microcredential is short, focused study that proves one concrete skill and ends with a recognised certificate — not a full degree. It typically takes weeks to a couple of months alongside work."
+  },
+  {
+    question: "Is CredentialStudy online?",
+    answer: "Yes. Programmes are designed to be taken online, alongside work, from anywhere in Europe."
+  },
+  {
+    question: "Will the certificate be recognised?",
+    answer: "Our programmes are built around recognised microcredential standards (aligned with the EU's European Approach to Micro-credentials and EQF levels), so the certificate carries weight with employers."
+  },
+  {
+    question: "When do programmes open?",
+    answer: "The first programmes are in preparation. Join the notify list and you'll be the first to know when enrolment opens."
+  }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "EducationalOrganization",
+      "@id": "https://credentialstudy.com/#org",
+      name: "CredentialStudy",
+      legalName: "Ettevõtluskeskus OÜ",
+      url: "https://credentialstudy.com/",
+      email: "info@02signal.ai",
+      description: "An online learning brand for focused, recognised microcredentials for working adults in Europe."
+    },
+    {
+      "@type": "WebSite",
+      url: "https://credentialstudy.com/",
+      name: "CredentialStudy",
+      inLanguage: "en",
+      publisher: { "@id": "https://credentialstudy.com/#org" }
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer }
+      }))
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo
+      title="CredentialStudy | Earn a recognised microcredential, online"
+      description="CredentialStudy is an online learning brand for focused, recognised microcredentials — short programmes that prove one concrete skill, designed for working adults across Europe."
+      canonicalPath="/"
+      ogTitle="Earn a recognised microcredential, online"
+      ogDescription="Focused, recognised microcredentials for working adults in Europe — short programmes that prove one concrete skill."
+      jsonLd={schema}
+    />
+  </head>
+  <body>
+    <Nav />
+
+    <main>
+      <section class="hero">
+        <div class="hero-inner">
+          <span class="eyebrow">Online microcredentials</span>
+          <h1>Earn a recognised skill, online.</h1>
+          <p>
+            CredentialStudy designs focused, recognised microcredentials — short programmes that
+            prove one concrete skill, built for working adults across Europe. Months, not years.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#notify" data-track-event="cta_click" data-track-label="hero_notify">Get notified</a>
+            <a class="btn btn-secondary" href="/how-it-works/" data-track-event="cta_click" data-track-label="hero_how">How it works</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="section-inner">
+          <div class="section-head">
+            <span class="kicker">How it works</span>
+            <h2>Learn one thing well — and prove it.</h2>
+          </div>
+          <div class="grid-3">
+            <article class="card">
+              <span class="tag">1 · Learn</span>
+              <h3>Focused online study</h3>
+              <p>A short, practical programme you take online, alongside work — designed around one concrete, in-demand skill.</p>
+            </article>
+            <article class="card">
+              <span class="tag">2 · Prove</span>
+              <h3>Clear assessment</h3>
+              <p>Transparent assessment tied to defined learning outcomes — you know exactly what you'll be able to do at the end.</p>
+            </article>
+            <article class="card">
+              <span class="tag">3 · Earn</span>
+              <h3>A recognised certificate</h3>
+              <p>A microcredential you can show employers, add to your CV and Europass, and build on toward further study.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ice">
+        <div class="section-inner">
+          <div class="section-head">
+            <span class="kicker">Why CredentialStudy</span>
+            <h2>Built for working adults who want a real skill, fast.</h2>
+          </div>
+          <div class="grid-3">
+            <article class="card"><h3>Focused</h3><p>One skill done properly — not a little of everything. Apply it the next week at work.</p></article>
+            <article class="card"><h3>Recognised</h3><p>Aligned with the EU's microcredential approach and EQF levels, so the certificate counts.</p></article>
+            <article class="card"><h3>Flexible</h3><p>Online and part-time, from anywhere in Europe, around your job and life.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="section-inner narrow">
+          <div class="section-head compact-head">
+            <span class="kicker">Programmes</span>
+            <h2>The first programmes are in preparation.</h2>
+            <p>We're finalising our first online microcredentials. See what's planned, or get notified the moment enrolment opens.</p>
+          </div>
+          <div class="inline-actions">
+            <a class="btn btn-primary" href="/programmes/" data-track-event="cta_click" data-track-label="home_programmes">See planned programmes</a>
+            <a class="btn btn-secondary" href="#notify" data-track-event="cta_click" data-track-label="home_notify2">Notify me</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="notify" class="ice">
+        <div class="section-inner narrow">
+          <div class="section-head compact-head">
+            <span class="kicker">Get notified</span>
+            <h2>Be first when enrolment opens.</h2>
+          </div>
+          <form class="lead-form" data-notify-form data-site-lead-form data-form-name="notify" data-webhook-url={import.meta.env.PUBLIC_SITE_LEAD_WEBHOOK_URL || ""}>
+            <div class="form-grid">
+              <div class="field">
+                <label for="role">I am a…</label>
+                <select id="role" name="role">
+                  <option value="learner">Learner / career changer</option>
+                  <option value="employer">Employer</option>
+                  <option value="partner">Potential partner</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="email">Email *</label>
+                <input id="email" name="email" type="email" required autocomplete="email" />
+              </div>
+              <div class="field full">
+                <label for="interest">Optional: which skill are you interested in?</label>
+                <textarea id="interest" name="interest" placeholder="E.g. data analysis, AI tools, project delivery…"></textarea>
+              </div>
+            </div>
+            <label class="checkbox">
+              <input type="checkbox" name="consent" required />
+              <span>I agree that Ettevõtluskeskus OÜ may use my data to reply and to notify me about CredentialStudy.</span>
+            </label>
+            <button class="btn btn-primary" type="submit">Notify me</button>
+            <p class="form-note" data-notify-note>We reply within one business day. If automatic sending fails, an email draft opens as a fallback.</p>
+          </form>
+        </div>
+      </section>
+
+      <section class="white">
+        <div class="section-inner narrow">
+          <div class="section-head compact-head">
+            <span class="kicker">FAQ</span>
+            <h2>Short answers.</h2>
+          </div>
+          <Faq items={faqItems} />
+        </div>
+      </section>
+
+      <section class="dark">
+        <div class="section-inner contact">
+          <div>
+            <span class="kicker">Get in touch</span>
+            <h2>Questions, partnerships or press?</h2>
+            <div class="inline-actions">
+              <a class="btn btn-primary" href="#notify" data-track-event="cta_click" data-track-label="bottom_notify">Get notified</a>
+              <a class="btn btn-secondary" href={emailHref} data-track-event="email_click" data-track-label="bottom_email">Email us</a>
+            </div>
+          </div>
+          <aside class="contact-card">
+            <h3>Contact</h3>
+            <p>Ettevõtluskeskus OÜ / 02Signal</p>
+            <p><a href={emailHref} data-track-event="email_click" data-track-label="contact_email">info@02signal.ai</a></p>
+            <p><a href="tel:+37258180435" data-track-event="phone_click" data-track-label="contact_phone">+372 5818 0435</a></p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+
+    <script>
+      const form = document.querySelector("[data-notify-form]") as HTMLFormElement | null;
+      const note = document.querySelector("[data-notify-note]");
+      const track = (name: string, params: Record<string, unknown>) => (window as any).csTrack?.(name, params);
+      form?.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!form.reportValidity()) return;
+        const webhookUrl = form.getAttribute("data-webhook-url") || "";
+        const payload = Object.fromEntries(new FormData(form).entries());
+        track("lead_form_submit_attempt", { form_name: "notify", source_site: "credentialstudy.com", role: String(payload.role || "") });
+        let sent = false;
+        if (webhookUrl) {
+          try {
+            const r = await fetch(webhookUrl, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ form: "notify", site: "credentialstudy.com", ...payload }) });
+            sent = r.ok;
+          } catch { sent = false; }
+        }
+        if (!sent) {
+          const body = encodeURIComponent(`Role: ${payload.role || "-"}\nEmail: ${payload.email || "-"}\nInterest: ${payload.interest || "-"}`);
+          window.location.href = `mailto:info@02signal.ai?subject=${encodeURIComponent("CredentialStudy - notify me")}&body=${body}`;
+        }
+        track("lead_form_submit", { form_name: "notify", source_site: "credentialstudy.com", role: String(payload.role || ""), delivery: sent ? "webhook" : "mailto" });
+        if (note) note.textContent = sent ? "Thanks! We'll be in touch." : "We opened an email draft — press send to finish.";
+      });
+    </script>
+  </body>
+</html>

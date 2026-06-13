@@ -1,0 +1,15 @@
+# build output
+dist/
+.astro/
+
+# deps
+node_modules/
+
+# vercel
+.vercel/
+
+# os
+.DS_Store
+
+# owner-only constraints (never commit)
+CLAUDE.local.md

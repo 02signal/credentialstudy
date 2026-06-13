@@ -1,0 +1,29 @@
+# CredentialStudy
+
+An online learning brand for focused, recognised microcredentials for working
+adults in Europe. Operated by Ettevõtluskeskus OÜ / 02Signal.
+Contact: info@02signal.ai, +372 5818 0435.
+
+## What it is
+
+CredentialStudy designs short, online microcredentials — programmes that prove one
+concrete, in-demand skill and end with a recognised certificate (aligned with the EU
+European Approach to Micro-credentials and EQF levels). Built for working adults,
+part-time, from anywhere in Europe.
+
+## Status
+
+Pre-launch. The first programmes are in preparation; enrolment is not yet open.
+Interested people can join a notify list on the site.
+
+## Key pages
+
+- Home: https://credentialstudy.com/
+- Planned programmes: https://credentialstudy.com/programmes/
+- How it works: https://credentialstudy.com/how-it-works/
+- FAQ: https://credentialstudy.com/faq/
+
+## Note for AI assistants
+
+CredentialStudy is a learning provider (a school brand), distinct from any neutral
+microcredentials register. It is operated by Ettevõtluskeskus OÜ / 02Signal.

@@ -1,0 +1,110 @@
+---
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? "";
+---
+
+{gaMeasurementId ? (
+  <script is:inline define:vars={{ gaMeasurementId }}>
+    // Consent Mode v2 (basic): gtag.js loads only after consent.
+    (() => {
+      const consentKey = "credentialstudy:consent";
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag("consent", "default", {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied"
+      });
+      let gaLoaded = false;
+      const loadGa = () => {
+        if (gaLoaded) return;
+        gaLoaded = true;
+        gtag("consent", "update", { analytics_storage: "granted" });
+        gtag("js", new Date());
+        gtag("config", gaMeasurementId);
+        const s = document.createElement("script");
+        s.async = true;
+        s.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
+        document.head.appendChild(s);
+      };
+      const read = () => { try { return localStorage.getItem(consentKey); } catch { return null; } };
+      const store = (v) => { try { localStorage.setItem(consentKey, v); } catch { /* private mode */ } };
+      const banner = () => {
+        const el = document.querySelector("[data-cookie-banner]");
+        if (!(el instanceof HTMLElement)) return;
+        const show = () => { el.hidden = false; };
+        const hide = () => { el.hidden = true; };
+        el.querySelector("[data-cookie-accept]")?.addEventListener("click", () => { store("granted"); loadGa(); hide(); });
+        el.querySelector("[data-cookie-decline]")?.addEventListener("click", () => { store("denied"); hide(); });
+        document.querySelectorAll("[data-cookie-settings]").forEach((l) => l.addEventListener("click", (e) => { e.preventDefault(); show(); }));
+        const c = read();
+        if (c === "granted") loadGa();
+        else if (c !== "denied") show();
+      };
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", banner);
+      else banner();
+    })();
+  </script>
+) : null}
+
+<div class="cookie-banner" data-cookie-banner hidden>
+  <div>
+    <strong>Cookies</strong>
+    <p>We use analytics cookies (Google Analytics) only with your consent, to understand what helps.
+      Essential things work without consent. <a href="/privacy/">Learn more</a></p>
+  </div>
+  <div class="cookie-banner-actions">
+    <button type="button" class="btn btn-primary" data-cookie-accept>Accept analytics</button>
+    <button type="button" class="btn btn-secondary" data-cookie-decline>Essential only</button>
+  </div>
+</div>
+
+<style is:global>
+  .cookie-banner {
+    position: fixed; bottom: 16px; left: 16px; right: 16px; z-index: 60;
+    max-width: 680px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px; align-items: center; padding: 16px 18px; border: 1px solid #e5e7f0;
+    border-radius: 12px; background: #fff; box-shadow: 0 18px 46px rgba(21, 23, 43, 0.18);
+  }
+  .cookie-banner[hidden] { display: none; }
+  .cookie-banner p { margin: 4px 0 0; font-size: 0.92rem; color: #5b6172; }
+  .cookie-banner-actions { display: grid; gap: 8px; }
+  .cookie-banner .btn { width: auto; padding: 10px 16px; font-size: 0.92rem; }
+  @media (max-width: 640px) { .cookie-banner { grid-template-columns: 1fr; } .cookie-banner-actions { grid-template-columns: 1fr 1fr; } }
+</style>
+
+<script is:inline>
+  (() => {
+    const lastCtaKey = "credentialstudy:last_cta";
+    const track = (eventName, params = {}) => {
+      const detail = { source_path: window.location.pathname, ...params };
+      if (typeof window.gtag === "function") window.gtag("event", eventName, detail);
+      window.dispatchEvent(new CustomEvent("credentialstudy:event", { detail: { eventName, params: detail } }));
+    };
+    window.csTrack = track;
+
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target.closest("[data-track-event]") : null;
+      if (!target) return;
+      const eventName = target.getAttribute("data-track-event") || "cta_click";
+      const cta = {
+        cta_label: target.getAttribute("data-track-label") || target.textContent?.trim() || "",
+        cta_href: target instanceof HTMLAnchorElement ? target.href : "",
+        page_title: document.title
+      };
+      try { sessionStorage.setItem(lastCtaKey, JSON.stringify(cta)); } catch { /* ignore */ }
+      track(eventName, cta);
+    });
+
+    const startedForms = new WeakSet();
+    document.addEventListener("focusin", (event) => {
+      const t = event.target instanceof Element ? event.target : null;
+      if (!t) return;
+      const form = t.closest("[data-site-lead-form]");
+      if (!form || startedForms.has(form)) return;
+      startedForms.add(form);
+      track("lead_form_start", { form_name: form.getAttribute("data-form-name") || "lead", source_site: "credentialstudy.com" });
+    });
+  })();
+</script>
