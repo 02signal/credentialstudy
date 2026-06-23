@@ -27,17 +27,22 @@ const {
   jsonLd
 } = Astro.props;
 
+// PRE-LAUNCH / EMBARGO (see CLAUDE.local.md): force noindex sitewide so the
+// skeleton is never indexed. Flip to false at launch (single switch).
+const PRE_LAUNCH = true;
+
 const canonical = new URL(canonicalPath, SITE).href;
 const image = new URL(ogImage, SITE).href;
 const ogT = ogTitle ?? title;
 const ogD = ogDescription ?? description;
+const robotsContent = PRE_LAUNCH ? "noindex, nofollow" : robots;
 ---
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>{title}</title>
 <meta name="description" content={description} />
-{robots ? <meta name="robots" content={robots} /> : null}
+{robotsContent ? <meta name="robots" content={robotsContent} /> : null}
 <link rel="canonical" href={canonical} />
 <link rel="alternate" hreflang="en" href={canonical} />
 <link rel="alternate" hreflang="x-default" href={canonical} />

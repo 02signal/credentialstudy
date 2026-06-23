@@ -1,19 +1,5 @@
+# PRE-LAUNCH / EMBARGO (see CLAUDE.local.md): the site is a skeleton and must
+# stay out of search until the owner lifts the embargo. Keep all crawlers out.
+# At launch, restore the allow-list version (sitemap + AI bots) from git history.
 User-agent: *
-Allow: /
-
-User-agent: GPTBot
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-Sitemap: https://credentialstudy.com/sitemap-index.xml
-
-# AI-readable resources:
-# https://credentialstudy.com/llms.txt
+Disallow: /
